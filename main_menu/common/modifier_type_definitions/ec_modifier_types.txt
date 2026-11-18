@@ -1,0 +1,162 @@
+# v0.1 development: custom modifier types are not automatically interpreted by EU5 tax code.
+# Values affect gameplay only after script consumers and current-build tests exist.
+
+ec_nobles_acceptable_max_tax = {
+	percent = yes
+	color = good
+	game_data = { category = country }
+}
+
+ec_nobles_monthly_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country }
+}
+
+ec_nobles_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country min = 0 max = 100 }
+}
+
+ec_clergy_acceptable_max_tax = {
+	percent = yes
+	color = good
+	game_data = { category = country }
+}
+
+ec_clergy_monthly_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country }
+}
+
+ec_clergy_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country min = 0 max = 100 }
+}
+
+ec_burghers_acceptable_max_tax = {
+	percent = yes
+	color = good
+	game_data = { category = country }
+}
+
+ec_burghers_monthly_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country }
+}
+
+ec_burghers_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country min = 0 max = 100 }
+}
+
+ec_peasants_acceptable_max_tax = {
+	percent = yes
+	color = good
+	game_data = { category = country }
+}
+
+ec_peasants_monthly_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country }
+}
+
+ec_peasants_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country min = 0 max = 100 }
+}
+
+ec_tribes_acceptable_max_tax = {
+	percent = yes
+	color = good
+	game_data = { category = country }
+}
+
+ec_tribes_monthly_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country }
+}
+
+ec_tribes_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country min = 0 max = 100 }
+}
+
+ec_cossacks_acceptable_max_tax = {
+	percent = yes
+	color = good
+	game_data = { category = country }
+}
+
+ec_cossacks_monthly_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country }
+}
+
+ec_cossacks_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country min = 0 max = 100 }
+}
+
+ec_dhimmi_acceptable_max_tax = {
+	percent = yes
+	color = good
+	game_data = { category = country }
+}
+
+ec_dhimmi_monthly_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country }
+}
+
+ec_dhimmi_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country min = 0 max = 100 }
+}
+
+ec_crown_monthly_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country }
+}
+
+ec_crown_corruption = {
+	decimals = 2
+	percent = no
+	color = bad
+	game_data = { category = country min = 0 max = 100 }
+}
+
+ec_global_acceptable_max_tax = {
+	percent = yes
+	color = good
+	game_data = { category = country }
+}
