@@ -2,11 +2,10 @@
   "name": "Estate Corruption",
   "id": "eu5_corruption",
   "version": "0.1.0-dev",
+  "game_id": "eu5",
   "supported_game_version": "1.4.*",
   "short_description": "Prototype: estate tax tolerance and independently tracked corruption. Not release ready.",
-  "tags": [
-    "Gameplay"
-  ],
+  "tags": ["Gameplay"],
   "relationships": [],
   "game_custom_data": {}
 }

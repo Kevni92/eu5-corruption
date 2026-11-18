@@ -38,7 +38,9 @@ class TestReleaseCandidate(unittest.TestCase):
             self.assertTrue((out / "in_game/common/scripted_effects/ec_corruption_monthly.txt").is_file())
             self.assertFalse((out / "docs").exists())
             self.assertFalse((out / "tools").exists())
-            self.assertEqual(json.loads((out / ".metadata/metadata.json").read_text())["version"], "0.1.0-rc1")
+            metadata = json.loads((out / ".metadata/metadata.json").read_text())
+            self.assertEqual(metadata["version"], "0.1.0-rc1")
+            self.assertEqual(metadata["game_id"], "eu5")
             self.assertFalse(report["version_verified_by_engine"])
 
     def test_fail_closed(self):
