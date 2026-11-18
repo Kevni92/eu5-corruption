@@ -7,7 +7,7 @@
 - Acht persistente Country-Korruptionsvariablen von 0–100.
 - Monatliche Berechnung über monthly_country_pulse, Estate-Tax-Rate und akzeptierte Steuer-Modifier.
 - Berechnungsregel: +10 Korruptionspunkte pro Monat bei 100 Prozentpunkten Überbesteuerung, zusätzlich zum jeweiligen Monthly-Corruption-Modifier; natürliche Erholung −0,1/Monat. Jeder Wert wird nach Änderung auf [0, 100] begrenzt. Balancing noch vorläufig.
-- Acht eigene statische Country-Malusse, deren tatsächliche Stärke monatlich auf Korruption/100 gesetzt wird.
+- Acht eigene statische Country-Malusse, deren tatsächliche Stärke monatlich auf Korruption/100 gesetzt wird. Jeder dieser Modifier enthält zugleich den sichtbaren Wert ec_<estate>_corruption = 100, wodurch er bei dynamischer Skalierung die tatsächliche Korruption von 0 bis 100 anzeigt.
 - Neue akzeptierte Tax- und monatliche Corruption-Modifier, deutsche und englische Localization.
 - Build aus lokaler Vanilla: ersetzt aktuelle Max-Tax-Zuweisungen durch akzeptierte Max-Tax-Modifier und fügt anschließend den globalen Max-Tax-Cap 1.0 über INJECT:country_base_values hinzu.
 - Vanilla-Auswirkungen auf Estate-Loyalität werden nicht geändert.

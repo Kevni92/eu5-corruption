@@ -59,6 +59,7 @@ class TestReleaseCandidate(unittest.TestCase):
         for estate in ("nobles","clergy","burghers","peasants","tribes","cossacks","dhimmi","crown"):
             self.assertIn(f"clamp_variable = {{ name = ec_{estate}_corruption min = 0 max = 100 }}", effect)
             self.assertIn(f"ec_{estate}_corruption_impact", impacts)
+            self.assertIn(f"ec_{estate}_corruption = 100", impacts)
             self.assertIn(f"ec_{estate}_corruption_impact", effect)
         for filename in list((ROOT / "in_game").rglob("*.txt")) + list((ROOT / "main_menu/common").rglob("*.txt")):
             data = filename.read_text(encoding="utf-8-sig")

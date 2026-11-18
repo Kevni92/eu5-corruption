@@ -2,40 +2,48 @@
 
 ec_nobles_corruption_impact = {
 	game_data = { category = country decaying = no }
+	ec_nobles_corruption = 100
 	levy_combat_efficiency_modifier = -0.30
 }
 
 ec_clergy_corruption_impact = {
 	game_data = { category = country decaying = no }
+	ec_clergy_corruption = 100
 	global_pop_conversion_speed_modifier = -0.25
 }
 
 ec_burghers_corruption_impact = {
 	game_data = { category = country decaying = no }
+	ec_burghers_corruption = 100
 	trade_income = -0.25
 }
 
 ec_peasants_corruption_impact = {
 	game_data = { category = country decaying = no }
+	ec_peasants_corruption = 100
 	global_monthly_food_modifier = -0.25
 }
 
 ec_tribes_corruption_impact = {
 	game_data = { category = country decaying = no }
+	ec_tribes_corruption = 100
 	levy_recovery_modifier = -0.25
 }
 
 ec_cossacks_corruption_impact = {
 	game_data = { category = country decaying = no }
+	ec_cossacks_corruption = 100
 	levy_combat_efficiency_modifier = -0.20
 }
 
 ec_dhimmi_corruption_impact = {
 	game_data = { category = country decaying = no }
+	ec_dhimmi_corruption = 100
 	global_pop_conversion_speed_modifier = -0.20
 }
 
 ec_crown_corruption_impact = {
 	game_data = { category = country decaying = no }
+	ec_crown_corruption = 100
 	country_cabinet_efficiency = -0.25
 }
