@@ -1,5 +1,5 @@
-# v0.1 development: custom modifier types are not automatically interpreted by EU5 tax code.
-# Values affect gameplay only after script consumers and current-build tests exist.
+# Estate Corruption v0.1: custom country modifier types.
+# Consumers are implemented; 1.4.9 engine verification is still required.
 
 ec_nobles_acceptable_max_tax = {
 	percent = yes

@@ -1,43 +1,34 @@
-# Technischer Status und geplante Implementierung
+# Implementierungsstand v0.1.0-rc1
 
-## Verifikation und Grenzen
+**Ziel:** EU5 1.4.9 (18.11.2026). **Quellen:** vollständige Gamefile-/Engine-Referenzen sind nur für 1.4.3 Beta nachgewiesen. Dies ist noch **kein 1.4.9-Laufzeitnachweis**.
 
-Die derzeit **verifizierte** öffentliche Spielversion ist EU5 **1.4.9** (18.11.2026). Das verfügbare GitHub-Textarchiv `HLJSXK/eu5-modding-base` hat Gamefiles aus **1.4.3 beta**, letzter Gamefile-Sync: Commit `9e941ced` vom 23.10.2026. Die öffentliche EU5DB ist eine extrahierte Sekundärdatenbank, kein vollständiger 1.4.9-Dump. Die erste Entwicklungsfassung entstand lokal und wird in `Kevni92/eu5-corruption` versioniert.
+## Implementiert
 
-### Bestätigte ältere Spiel-Referenzen (1.4.3 beta, **nicht** 1.4.9-Syntaxbeleg)
+- Acht persistente Country-Korruptionsvariablen von 0–100.
+- Monatliche Berechnung über monthly_country_pulse, Estate-Tax-Rate und akzeptierte Steuer-Modifier.
+- Berechnungsregel: +10 Korruptionspunkte pro Monat bei 100 Prozentpunkten Überbesteuerung, zusätzlich zum jeweiligen Monthly-Corruption-Modifier; natürliche Erholung −0,1/Monat. Jeder Wert wird nach Änderung auf [0, 100] begrenzt. Balancing noch vorläufig.
+- Acht eigene statische Country-Malusse, deren tatsächliche Stärke monatlich auf Korruption/100 gesetzt wird.
+- Neue akzeptierte Tax- und monatliche Corruption-Modifier, deutsche und englische Localization.
+- Build aus lokaler Vanilla: ersetzt aktuelle Max-Tax-Zuweisungen durch akzeptierte Max-Tax-Modifier und fügt anschließend den globalen Max-Tax-Cap 1.0 über INJECT:country_base_values hinzu.
+- Vanilla-Auswirkungen auf Estate-Loyalität werden nicht geändert.
 
-- `game/in_game/common/estates/00_default.txt`: u. a. `nobles_estate_max_tax`, `global_estate_max_tax`, `levy_combat_efficiency_modifier`.
-- `game/in_game/common/laws/03_estate_laws.txt`: Policy `curtail_nobles_policy` mit `nobles_estate_max_tax = 0.1`.
-- `game/in_game/common/estate_privileges/nobles_estate.txt` und `peasants_estate.txt`: Max-Tax-Werte.
-- `game/in_game/common/cabinet_actions/taluqdar_tax_collection.txt`: `peasants_estate_max_tax`.
-- `game/in_game/common/auto_modifiers/country.txt`: `country_base_values`.
-- `game/main_menu/common/modifier_type_definitions/00_modifier_types.txt`: Typdefinitionen (`percent`, `color`, `game_data/category`).
-- `game/main_menu/common/static_modifiers/`: statische Ländermodifikatoren mit Country-Scope.
-- `monthly_country_pulse` laut altem `on_actions.log` mit Country-Scope; aktuelle 1.4.9-Semantik offen.
+## Noch offen
 
-## Paket-Dateien
+1. Tatsächlich installierten Patch 1.4.9 und identische lokale Gamefiles/Engine-Dumps beschaffen.
+2. Build und Script-Verhalten in EU5 testen, insbesondere monatlichen Hook, Skriptwerte, Variable-Persistenz und dynamische Modifier-Skalierung.
+3. Vollständigen Audit der betroffenen Vanilla-Dateitypen, der GUI und der DLC-Interaktionen durchführen. Whole-file-Overrides sind nicht universell kompatibel.
+4. Prüfen, ob der Slider nach Cap-Anhebung tatsächlich 100 % des Estate-Tax-Maximums darstellt.
+5. KI-, Savegame-, Localization-, Multiplayer- und Performance-Tests abschließen.
+6. Erst danach Version 0.1.0 für den Steam Workshop freigeben.
 
-- `main_menu/common/modifier_type_definitions/ec_modifier_types.txt`: neue **Definitionen** für akzeptierte Besteuerung, monatliche Korruptionsrate und Anzeige der Korruptionswerte.
-- `main_menu/common/static_modifiers/ec_corruption_impact.txt`: vorbereitete Country-Malusse auf Basis von 100 Korruption. **Die Datei alleine wendet sie noch nicht an.**
-- `in_game/common/auto_modifiers/ec_tax_ceiling_experimental.txt`: aus Sicherheitsgründen auskommentierter Entwurf für die 100%-Grenze; keine aktive Steueränderung.
-- `tools/build_overrides.py`: findet alle direkten Max-Tax-Zuweisungen in der aktuellen Vanilla und erstellt im Build-Verzeichnis Overlay-Dateien. **Muss von einem Menschen auf Vollständigkeit und Semantik geprüft werden.**
-- `docs/PLAN.md`: Berechnungs- und Balancingziel.
+## Verifizierte Muster aus dem älteren Snapshot
 
-## Kritische noch ausstehende technische Arbeiten
+HLJSXK/eu5-modding-base, Gamefile-Sync 9e941ced (1.4.3 Beta):
+- in_game/common/auto_modifiers/country.txt: country_base_values, global_estate_max_tax = 0.35.
+- in_game/common/on_action/country_monthly.txt: monthly_country_pulse.
+- in_game/common/estates/00_default.txt: Estate-Power-Skalierung für max_tax.
+- reference_official_defines/docs/effects.log: add_country_modifier und change_country_modifier_size.
+- reference_official_defines/docs/triggers.log: estate_tax_rate und estate_max_tax.
+- in_game/common/generic_actions/holy_war_war_actions.txt: clamp_variable.
 
-1. Vollständigen 1.4.9-`game/`-Ordner lokal scannen, `script_docs` und `dump_data_types` dazu erzeugen.
-2. Max-Tax-Quellen nach Typ klassifizieren: Vanilla-Estate high/low-power, Base/Auto, Policies, Privileges, Advances, scripted modifiers, GUI, Trigger, DLC, DLC-Overrides, sonstige Datentypen. `global_estate_max_tax` nicht übersehen.
-3. Den tatsächlichen Max-Tax-Algorithmus der Engine und GUI prüfen (100 % Slider gegen 100 % nominelle Estate-Besteuerung abgrenzen).
-4. Alle Werte auf neue Country-Modifier umhängen. **Globaler Modifier** bleibt global und wirkt auf die Akzeptanz aller steuerpflichtigen Estates. Vorherige Basisteile und Skalierungen erhalten.
-5. Per Country/Stand persistente `ec_<estate>_corruption`-Variablen anlegen; Monthly-Update an den aktuell nachgewiesenen Country-Monthly-Hook anbinden; Initialisierung und Savegame-Restore testen.
-6. Prüfen, wie der Engine-Scriptwert eines neu definierten Country-Modifiers gelesen werden kann und ob der Estate-Tax-Rate-Getter die maßgebliche 0–100-%-Steuer widerspiegelt.
-7. Effects dynamisch mit `add_country_modifier(... size = corruption / 100)` oder verifizierter `auto_modifier`-Skalierung aktualisieren. Keine unbewiesene Syntax übernehmen.
-8. GUI- und Localization-Hook einbauen; zusätzliche Multiplayer-/KI-/Performance-Tests.
-
-## Override-Konflikte
-
-Der Generator erzeugt **Whole-file-Overlays**. Diese sind besonders konfliktanfällig und dürfen nicht als allgemeine finale Workshop-Lösung gelten. `INJECT`, `REPLACE` und Listenoperationen sind **datenbankabhängig** und müssen mit 1.4.9 geprüft werden. Für eine Workshop-Veröffentlichung bevorzugt minimalinvasive Objektoperationen einsetzen, soweit exakt verifiziert.
-
-## Datenrechte
-
-Kein mit Drittanbieter-Gamefiles gefülltes GitHub-Repository anlegen. Versionstreue Vanilla-Scans und generierte Overrides bleiben zunächst lokal. Bei Steam-Uploads die Lizenz-/Moddingregeln von Paradox und die Rechte an enthaltenen Originaldateien prüfen.
+Diese alten Referenzen sind **kein** Beweis der Syntaxgültigkeit im Patch 1.4.9.

@@ -1,0 +1,13 @@
+# On-action registration: requires verification on target EU5 build.
+# All monthly effects are in the Country scope.
+monthly_country_pulse = {
+	on_actions = {
+		ec_corruption_monthly
+	}
+}
+
+ec_corruption_monthly = {
+	effect = {
+		ec_update_corruption_effect = yes
+	}
+}

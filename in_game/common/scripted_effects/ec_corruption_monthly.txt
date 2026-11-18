@@ -1,0 +1,181 @@
+# Estate Corruption v0.1 - monthly country update.
+# 1.4.3-beta reference syntax: on_action/monthly_country_pulse, country variables,
+# change_country_modifier_size, estate tax getter. REQUIRES 1.4.9 IN-GAME TEST.
+# Tax rate is normalized 0..1 after source max-tax replacement; base cap = 1.
+
+ec_update_corruption_effect = {
+	# nobles: Country-owned persistent corruption (0..100).
+	if = { limit = { NOT = { has_variable = ec_nobles_corruption } } set_variable = { name = ec_nobles_corruption value = 0 } }
+	change_variable = {
+		name = ec_nobles_corruption
+		add = {
+			value = {
+				value = "estate(estate_type:nobles_estate).estate_tax_rate"
+				subtract = {
+					value = modifier:ec_global_acceptable_max_tax
+					add = modifier:ec_nobles_acceptable_max_tax
+					max = 0
+					min = 1
+				}
+				max = 0
+				multiply = 10
+			}
+			add = modifier:ec_nobles_monthly_corruption
+			subtract = 0.1
+		}
+	}
+	clamp_variable = { name = ec_nobles_corruption min = 0 max = 100 }
+	add_country_modifier = { modifier = ec_nobles_corruption_impact months = 2 mode = replace size = 0 }
+	change_country_modifier_size = { modifier = ec_nobles_corruption_impact value = { value = var:ec_nobles_corruption divide = 100 } }
+
+	# clergy: Country-owned persistent corruption (0..100).
+	if = { limit = { NOT = { has_variable = ec_clergy_corruption } } set_variable = { name = ec_clergy_corruption value = 0 } }
+	change_variable = {
+		name = ec_clergy_corruption
+		add = {
+			value = {
+				value = "estate(estate_type:clergy_estate).estate_tax_rate"
+				subtract = {
+					value = modifier:ec_global_acceptable_max_tax
+					add = modifier:ec_clergy_acceptable_max_tax
+					max = 0
+					min = 1
+				}
+				max = 0
+				multiply = 10
+			}
+			add = modifier:ec_clergy_monthly_corruption
+			subtract = 0.1
+		}
+	}
+	clamp_variable = { name = ec_clergy_corruption min = 0 max = 100 }
+	add_country_modifier = { modifier = ec_clergy_corruption_impact months = 2 mode = replace size = 0 }
+	change_country_modifier_size = { modifier = ec_clergy_corruption_impact value = { value = var:ec_clergy_corruption divide = 100 } }
+
+	# burghers: Country-owned persistent corruption (0..100).
+	if = { limit = { NOT = { has_variable = ec_burghers_corruption } } set_variable = { name = ec_burghers_corruption value = 0 } }
+	change_variable = {
+		name = ec_burghers_corruption
+		add = {
+			value = {
+				value = "estate(estate_type:burghers_estate).estate_tax_rate"
+				subtract = {
+					value = modifier:ec_global_acceptable_max_tax
+					add = modifier:ec_burghers_acceptable_max_tax
+					max = 0
+					min = 1
+				}
+				max = 0
+				multiply = 10
+			}
+			add = modifier:ec_burghers_monthly_corruption
+			subtract = 0.1
+		}
+	}
+	clamp_variable = { name = ec_burghers_corruption min = 0 max = 100 }
+	add_country_modifier = { modifier = ec_burghers_corruption_impact months = 2 mode = replace size = 0 }
+	change_country_modifier_size = { modifier = ec_burghers_corruption_impact value = { value = var:ec_burghers_corruption divide = 100 } }
+
+	# peasants: Country-owned persistent corruption (0..100).
+	if = { limit = { NOT = { has_variable = ec_peasants_corruption } } set_variable = { name = ec_peasants_corruption value = 0 } }
+	change_variable = {
+		name = ec_peasants_corruption
+		add = {
+			value = {
+				value = "estate(estate_type:peasants_estate).estate_tax_rate"
+				subtract = {
+					value = modifier:ec_global_acceptable_max_tax
+					add = modifier:ec_peasants_acceptable_max_tax
+					max = 0
+					min = 1
+				}
+				max = 0
+				multiply = 10
+			}
+			add = modifier:ec_peasants_monthly_corruption
+			subtract = 0.1
+		}
+	}
+	clamp_variable = { name = ec_peasants_corruption min = 0 max = 100 }
+	add_country_modifier = { modifier = ec_peasants_corruption_impact months = 2 mode = replace size = 0 }
+	change_country_modifier_size = { modifier = ec_peasants_corruption_impact value = { value = var:ec_peasants_corruption divide = 100 } }
+
+	# tribes: Country-owned persistent corruption (0..100).
+	if = { limit = { NOT = { has_variable = ec_tribes_corruption } } set_variable = { name = ec_tribes_corruption value = 0 } }
+	change_variable = {
+		name = ec_tribes_corruption
+		add = {
+			value = {
+				value = "estate(estate_type:tribes_estate).estate_tax_rate"
+				subtract = {
+					value = modifier:ec_global_acceptable_max_tax
+					add = modifier:ec_tribes_acceptable_max_tax
+					max = 0
+					min = 1
+				}
+				max = 0
+				multiply = 10
+			}
+			add = modifier:ec_tribes_monthly_corruption
+			subtract = 0.1
+		}
+	}
+	clamp_variable = { name = ec_tribes_corruption min = 0 max = 100 }
+	add_country_modifier = { modifier = ec_tribes_corruption_impact months = 2 mode = replace size = 0 }
+	change_country_modifier_size = { modifier = ec_tribes_corruption_impact value = { value = var:ec_tribes_corruption divide = 100 } }
+
+	# cossacks: Country-owned persistent corruption (0..100).
+	if = { limit = { NOT = { has_variable = ec_cossacks_corruption } } set_variable = { name = ec_cossacks_corruption value = 0 } }
+	change_variable = {
+		name = ec_cossacks_corruption
+		add = {
+			value = {
+				value = "estate(estate_type:cossacks_estate).estate_tax_rate"
+				subtract = {
+					value = modifier:ec_global_acceptable_max_tax
+					add = modifier:ec_cossacks_acceptable_max_tax
+					max = 0
+					min = 1
+				}
+				max = 0
+				multiply = 10
+			}
+			add = modifier:ec_cossacks_monthly_corruption
+			subtract = 0.1
+		}
+	}
+	clamp_variable = { name = ec_cossacks_corruption min = 0 max = 100 }
+	add_country_modifier = { modifier = ec_cossacks_corruption_impact months = 2 mode = replace size = 0 }
+	change_country_modifier_size = { modifier = ec_cossacks_corruption_impact value = { value = var:ec_cossacks_corruption divide = 100 } }
+
+	# dhimmi: Country-owned persistent corruption (0..100).
+	if = { limit = { NOT = { has_variable = ec_dhimmi_corruption } } set_variable = { name = ec_dhimmi_corruption value = 0 } }
+	change_variable = {
+		name = ec_dhimmi_corruption
+		add = {
+			value = {
+				value = "estate(estate_type:dhimmi_estate).estate_tax_rate"
+				subtract = {
+					value = modifier:ec_global_acceptable_max_tax
+					add = modifier:ec_dhimmi_acceptable_max_tax
+					max = 0
+					min = 1
+				}
+				max = 0
+				multiply = 10
+			}
+			add = modifier:ec_dhimmi_monthly_corruption
+			subtract = 0.1
+		}
+	}
+	clamp_variable = { name = ec_dhimmi_corruption min = 0 max = 100 }
+	add_country_modifier = { modifier = ec_dhimmi_corruption_impact months = 2 mode = replace size = 0 }
+	change_country_modifier_size = { modifier = ec_dhimmi_corruption_impact value = { value = var:ec_dhimmi_corruption divide = 100 } }
+
+	# Crown is not taxable; only the independent monthly corruption modifier applies.
+	if = { limit = { NOT = { has_variable = ec_crown_corruption } } set_variable = { name = ec_crown_corruption value = 0 } }
+	change_variable = { name = ec_crown_corruption add = { value = modifier:ec_crown_monthly_corruption subtract = 0.1 } }
+	clamp_variable = { name = ec_crown_corruption min = 0 max = 100 }
+	add_country_modifier = { modifier = ec_crown_corruption_impact months = 2 mode = replace size = 0 }
+	change_country_modifier_size = { modifier = ec_crown_corruption_impact value = { value = var:ec_crown_corruption divide = 100 } }
+}

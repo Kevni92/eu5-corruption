@@ -33,18 +33,20 @@ def scan_one(file: Path, relative: Path):
     for line_number, line in enumerate(text.splitlines(keepends=True), 1):
         for m in FIND.finditer(line):
             key = m.group(0)
-            if line.lstrip().startswith('#'):
+            code_before_comment = line.split('#', 1)[0]
+            if m.start() >= len(code_before_comment):
                 status = 'comment'
             elif is_skipped(relative):
                 status = 'excluded_category'
             elif key not in KEY_MAP:
                 status = 'unknown_modifier'
-            elif not (a := ASSIGN.match(line)) or a.group('key') != key or a.start('key') != m.start():
-                status = 'manual_review'
-            else:
-                # The assignment may be a trigger instead of a modifier. Always review the output.
+            elif (a := ASSIGN.match(code_before_comment)) and a.group('key') == key and a.start('key') == m.start():
+                # Parser-sensitive: review all generated whole-file overrides.
                 status = 'candidate'
                 offsets.append((position + a.start('key'), position + a.end('key'), KEY_MAP[key]))
+            else:
+                # A read of modifier:<name> is not a modifier-source assignment.
+                status = 'read_reference'
             findings.append({'file': str(relative).replace('\\', '/'), 'line': line_number,
                              'modifier': key, 'status': status,
                              'replacement': KEY_MAP.get(key), 'excerpt': line.strip()[:280]})
@@ -104,7 +106,7 @@ def main():
     print(f"Scanned {m['files_scanned']} files, {len(m['findings'])} references, "
           f"{m['candidate_assignments']} candidate edits in {m['files_with_candidate_changes']} files")
     print(f"Review the report in: {ns.out / 'max_tax_audit.json'}")
-    blockers=[(k,v) for k,v in m['status_counts'].items() if k in ('unknown_modifier','manual_review','excluded_category') and v]
+    blockers=[(k,v) for k,v in m['status_counts'].items() if k in ('unknown_modifier','manual_review','excluded_category','read_reference') and v]
     if blockers:
         print('Manual verification required:',blockers)
     print('NOT READY for use as Steam Workshop payload without 1.4.9 engine tests.')

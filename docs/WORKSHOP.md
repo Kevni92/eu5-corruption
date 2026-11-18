@@ -1,23 +1,13 @@
-# Steam-Workshop-Checkliste
+# Steam Workshop – Freigabeplan v0.1
 
-Der Stand `0.1.0-dev` ist **nicht** veröffentlichungsbereit.
+Der Entwicklungsstand 0.1.0-rc1 ist **noch nicht Workshop-freigegeben**.
 
-## Vorbereitung
+1. EU5 1.4.9 installieren. Die tatsächliche Buildnummer und Checksum dokumentieren.
+2. python -m unittest discover -s tests -v ausführen.
+3. python tools/build_release.py --game /pfad/zur/EU5/game --game-version 1.4.9 --out dist/EstateCorruption ausführen.
+4. Audit- und Buildreport in dist/ vollständig prüfen. Nicht erkannte Estate-Max-Tax-Quellen blockieren den Build.
+5. Nur den generierten Ordner dist/EstateCorruption als lokale Mod aktivieren. Quellcode, Docs und Vanilla-Referenzen gehören nicht in den Workshop-Upload.
+6. Alle Fälle in docs/TESTPLAN.md auf der echten Spielversion testen und Logfehler beheben.
+7. Erst danach Metadaten auf v0.1.0 setzen, ein eigenes Thumbnail anlegen und über EU5/Steam Launcher hochladen.
 
-1. EU5 1.4.9 und Version des Gamefile-Snapshots nachweisen.
-2. V0.1-Abnahmekriterien aus `PLAN.md` vollständig erfüllen und im Spiel testen.
-3. Nur `.metadata/`, `in_game/`, `main_menu/` und benötigte Assets in den Release-Ordner übernehmen. `docs/`, `tools/`, `build/` und den kompletten Vanilla-Spielbaum nicht in den Workshop hochladen.
-4. Ein eigenständiges Vorschaubild `thumbnail.png` anlegen (empfohlen 512×512). Lizenz und Dateigröße prüfen.
-5. `.metadata/metadata.json` nach tatsächlicher Testfreigabe auf `0.1.0` setzen und `short_description` überarbeiten.
-6. Über den EU5-Launcher als lokale Mod aktivieren und anschließend mit Steam-Workshop-Funktion hochladen.
-7. Workshop-Titel/Beschreibung, Changelog, benötigte Spielversion und Inkompatibilitäten angeben.
-
-## QA-Freigabe
-
-- 0 Parserfehler aus Mod-Dateien, Test im Spiel statt nur Log-Suche.
-- Tax-Cap 100 % für alle sieben steuerpflichtigen Vanilla-Estates in mehreren Länder-/Regierungs-/DLC-Konstellationen.
-- Korrektes Verhalten von Crown Estate ohne eigene Steuer.
-- Korruptionswerte unabhängig, begrenzt und savegame-persistent.
-- Nichtlineare Gameplay-Effekte nur falls bewusst vorgesehen; v0.1 fordert lineare Skalierung.
-- Keine stillen Kompatibilitätsprobleme mit bekannten UI/Tax-Mods.
-- Multiplayer-Synchronisierung prüfen, falls gewünscht.
+**Risiken:** Der Build verwendet Whole-file-Overrides für die migrierten Vanilla-Quellen. Das kann Modkonflikte auslösen. Eine lokal angegebene Version ist keine technisch verifizierte Engine-Version. Unit-Tests ersetzen keinen Spieltest.

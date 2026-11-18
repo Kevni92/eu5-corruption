@@ -1,67 +1,41 @@
-# Full-strength effect templates (100 corruption).
- # Not active until a verified monthly apply/update lifecycle is added.
- # Intended dynamic application: size = current corruption / 100, clamped 0..1.
+# Estate Corruption impact: applied by monthly script at variable/100 strength.
 
 ec_nobles_corruption_impact = {
-	game_data = {
-		category = country
-		decaying = no
-	}
-	levy_combat_efficiency_modifier = -0.3
+	game_data = { category = country decaying = no }
+	levy_combat_efficiency_modifier = -0.30
 }
 
 ec_clergy_corruption_impact = {
-	game_data = {
-		category = country
-		decaying = no
-	}
-	global_pop_conversion_speed = -0.25
+	game_data = { category = country decaying = no }
+	global_pop_conversion_speed_modifier = -0.25
 }
 
 ec_burghers_corruption_impact = {
-	game_data = {
-		category = country
-		decaying = no
-	}
+	game_data = { category = country decaying = no }
 	trade_income = -0.25
 }
 
 ec_peasants_corruption_impact = {
-	game_data = {
-		category = country
-		decaying = no
-	}
-	food_production = -0.25
+	game_data = { category = country decaying = no }
+	global_monthly_food_modifier = -0.25
 }
 
 ec_tribes_corruption_impact = {
-	game_data = {
-		category = country
-		decaying = no
-	}
+	game_data = { category = country decaying = no }
 	levy_recovery_modifier = -0.25
 }
 
 ec_cossacks_corruption_impact = {
-	game_data = {
-		category = country
-		decaying = no
-	}
-	levy_combat_efficiency_modifier = -0.2
+	game_data = { category = country decaying = no }
+	levy_combat_efficiency_modifier = -0.20
 }
 
 ec_dhimmi_corruption_impact = {
-	game_data = {
-		category = country
-		decaying = no
-	}
-	global_pop_conversion_speed = -0.2
+	game_data = { category = country decaying = no }
+	global_pop_conversion_speed_modifier = -0.20
 }
 
 ec_crown_corruption_impact = {
-	game_data = {
-		category = country
-		decaying = no
-	}
+	game_data = { category = country decaying = no }
 	country_cabinet_efficiency = -0.25
 }

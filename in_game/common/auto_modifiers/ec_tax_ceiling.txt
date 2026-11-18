@@ -1,0 +1,5 @@
+# 1.0 (= 100%) tax ceiling after build-time migration of all original max-tax
+# sources into ec_*_acceptable_max_tax. Do not enable without audited source migration.
+INJECT:country_base_values = {
+	global_estate_max_tax = 1.0
+}
