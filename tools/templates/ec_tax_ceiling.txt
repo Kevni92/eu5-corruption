@@ -1,0 +1,5 @@
+# Added to a release ONLY after the complete max-tax source migration.
+# All seven taxable Vanilla estates can now be set to 100%.
+INJECT:country_base_values = {
+	global_estate_max_tax = 1.0
+}

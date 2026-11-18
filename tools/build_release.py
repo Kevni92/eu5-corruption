@@ -53,6 +53,15 @@ def release(project: Path, game: Path, destination: Path, declared_version: str)
                 raise RuntimeError(f"Missing required source tree: {source}")
             shutil.copytree(source, payload / dirname,
                             ignore=shutil.ignore_patterns(*IGNORE, "*.pyc"))
+        # Add the hard 100% ceiling only to an audited/rebuilt release, not to the source tree.
+        cap_template = project / "tools" / "templates" / "ec_tax_ceiling.txt"
+        if not cap_template.is_file():
+            raise RuntimeError("Missing vetted tax-cap template.")
+        cap_target = payload / "in_game" / "common" / "auto_modifiers" / "ec_tax_ceiling.txt"
+        if cap_target.exists():
+            raise RuntimeError("Unexpected bundled tax-cap: it must be inserted only by the release builder.")
+        cap_target.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(cap_template, cap_target)
         for file in (work / "audit" / "overrides").rglob("*.txt"):
             rel = file.relative_to(work / "audit" / "overrides")
             target = payload / rel
